@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    first:
+      url: jdbc:postgresql://localhost:5432/shop
+      username: postgres
+      password: 260805
+      driver-class-name: org.postgresql.Driver
+    second:
+      url: jdbc:postgresql://localhost:5432/shop
+      username: postgres
+      password: 260805
+      driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    schemas:
+      - public
+  logging:
+    level:
+      org.springframework: DEBUG
+      org.hibernate: DEBUG
+server:
+  port:8081
