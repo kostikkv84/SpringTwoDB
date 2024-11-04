@@ -1,15 +1,21 @@
 package org.example.springdbtest.db2.service;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.springdbtest.db1.entity.Customers;
 import org.example.springdbtest.db2.entity.Products;
 import org.example.springdbtest.db2.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Data
+//@Transactional("secondTransactionManager")
 public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
 
@@ -17,7 +23,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Products> getProductsById(Integer id) {
-        return List.of();
+        Optional<Products> optional = productRepository.findById(id);
+        return optional.map(Collections::singletonList).orElseGet(Collections::emptyList);
     }
 
     @Override
@@ -42,7 +49,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Products updateProducts(Products product) {
-        return null;
+        return productRepository.save(product);
     }
 
     @Override

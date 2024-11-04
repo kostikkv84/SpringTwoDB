@@ -17,6 +17,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -28,11 +29,8 @@ import java.util.Map;
         basePackages = "org.example.springdbtest.db2.repository", // Пакет репозиториев для первой БД
         entityManagerFactoryRef = "secondEntityManagerFactory",
         transactionManagerRef = "secondTransactionManager" )
-
+@EnableTransactionManagement
 public class SecondaryConfig {
-            // "org.hibernate.dialect.PostgreSQL10Dialect"
-        //"org.example.springdbtest.entity"
-        //"org.example.springdbtest.repository.primary"
 
         @Bean(name = "secondDataSource")
         @ConfigurationProperties("spring.datasource.second")

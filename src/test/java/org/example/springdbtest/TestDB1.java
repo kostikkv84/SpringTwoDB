@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional("firstTransactionManager")
 @Data
-class SpringDBtestApplicationTests {
+class TestDB1 {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -45,8 +44,8 @@ class SpringDBtestApplicationTests {
 
 	@Test // работает
 	public void deleteById() throws IOException {
-		customerService.deleteCustomer(31);
-		Assertions.assertFalse(customerService.getCustomerById(31).isEmpty());
+		customerService.deleteCustomer(33);
+		assertTrue(customerService.getCustomerById(33).isEmpty());
 	}
 
 
@@ -56,7 +55,7 @@ class SpringDBtestApplicationTests {
 		result.get(0).setLastname("Измененный1");
 
 		customerService.updateCustomer(result.get(0));
-		Assertions.assertEquals("Измененны1й", customerService.getCustomerById(3).get(0).getLastname());
+		Assertions.assertEquals("Измененный1", customerService.getCustomerById(3).get(0).getLastname());
 	}
 
 	@Test // Работает
@@ -65,12 +64,9 @@ class SpringDBtestApplicationTests {
 		File json = new File("src/main/java/json/customer.json");
 		Customers customer = objectMapper.readValue(json, Customers.class);
 		customer.setLastname("ТестСОхраненияя111");
-		System.out.println(customer);
 		// дописать
-		//customerRepository.save(customer);
 		Customers newCustomer = customerService.saveCustomer(customer);
-		Assertions.assertNull(newCustomer);
-		//Assertions.assertEquals(customer.getLastname(), customerService.saveCustomer(customer).getLastname());
+		Assertions.assertEquals(customer.getLastname(), newCustomer.getLastname(), "Запись не сохранилась! ");
 	}
 
 	@Test // Работает
@@ -87,12 +83,16 @@ class SpringDBtestApplicationTests {
 		result.forEach(x -> assertThat(x.getName(), is(not(emptyString()))));
 	}
 
-	@Test
+	@Test // Работает - через sql
 	void insertIntoCustomer() {
 		String sql = "INSERT INTO customers (name, surname, lastname, idproduct) " +
-				"VALUES (" + "'Петр', 'Гречишин1', 'Иванович', '18')";
+				"VALUES (" + "'Петр', 'Гречишин1111', 'Иванович', '18')";
 		jdbcTemplate.update(sql);
 
+
+		String sqlP = "INSERT INTO products (name, description, price, count, customer_id) " +
+				"VALUES (" + "'Samsung', 'описание телефона', '58500.00', '1', 1)";
+		jdbcTemplate.update(sqlP);
 	}
 
 
