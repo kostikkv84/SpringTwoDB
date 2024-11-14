@@ -6,7 +6,7 @@ spring:
       password: 260805
       driver-class-name: org.postgresql.Driver
     second:
-      jdbc-url: jdbc:postgresql://localhost:5432/shop
+      jdbc-url: jdbc:postgresql://localhost:5432/univercity
       username: postgres
       password: 260805
       driver-class-name: org.postgresql.Driver

@@ -4,11 +4,11 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.springdbtest.db1.entity.Customers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.example.springdbtest.db1.repository.CustomerRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
