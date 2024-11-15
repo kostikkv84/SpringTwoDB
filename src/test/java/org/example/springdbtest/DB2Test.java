@@ -41,7 +41,7 @@ public class DB2Test {
 
     @Test // Работает
     public void findById() throws IOException {
-        List<Student> result = studentService.getById(1L);
+        List<Student> result = studentService.getStudentById(1L);
         assertFalse(result.isEmpty(), "Student should be present");
         assertEquals("IVAN", result.get(0).getFirstname());
     }
@@ -49,14 +49,14 @@ public class DB2Test {
 
     @Test // работает
     public void updateById() throws IOException {
-        List<Student> result = studentService.getById(1L);
+        List<Student> result = studentService.getStudentById(1L);
         result.get(0).setEmail("Измененный Email");
-        Assertions.assertEquals(result.get(0).getEmail(), studentService.update(result.get(0)).getEmail());
+        Assertions.assertEquals(result.get(0).getEmail(), studentService.updateStudent(result.get(0)).getEmail());
     }
 
     @Test // Работает два обращения к разным БД
     public void findByIdMultipleBD() throws IOException {
-        List<Student> resultP = studentService.getById(1L);
+        List<Student> resultP = studentService.getStudentById(1L);
         assertFalse(resultP.isEmpty(), "Product should be present");
         assertEquals(29, resultP.get(0).getAge());
 
