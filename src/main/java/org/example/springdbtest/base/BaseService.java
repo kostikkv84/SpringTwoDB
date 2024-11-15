@@ -6,6 +6,7 @@ public interface BaseService<T, ID> {
     List<T> getById(ID id);
     List<T> getByParam(String param);
     T save(T entity);
+    void deleteById(Integer param);
     void deleteByParam(String param);
     Iterable<T> getAll();
     T update(T entity);

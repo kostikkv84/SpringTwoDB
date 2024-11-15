@@ -1,10 +1,9 @@
 package org.example.springdbtest.db2.service;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.example.springdbtest.base.BaseService;
-import org.example.springdbtest.db1.entity.Customers;
-import org.example.springdbtest.db1.entity.Products;
+import org.example.springdbtest.db1.repository.CustomerRepository;
 import org.example.springdbtest.db2.entity.Student;
 import org.example.springdbtest.db2.repository.StudentRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -20,15 +19,66 @@ import java.util.Optional;
 //@Transactional("secondTransactionManager")
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
-
-// требуется реализовать методы
-
+    private final EntityManagerFactory entityManagerFactory;
 
     @Override
-    public List<Student> getById(Long id) {
+    public List<Student> getStudentById(Long id) {
         Optional<Student> optional = studentRepository.findById(id);
         return optional.map(Collections::singletonList).orElseGet(Collections::emptyList);
     }
+
+    //Реализовать
+    @Override
+    public List<Student> getStudentByParam(String param) {
+        return List.of();
+    }
+
+    @Override
+    public Student saveStudent(Student student) {
+        if (student.getId() != null && studentRepository.existsById(student.getId())) {
+            throw new ResourceNotFoundException("Customer already exists");
+        }
+        return studentRepository.save(student);
+    }
+
+    //реализовать
+    @Override
+    public void deleteBySurname(String surname) {
+
+    }
+
+    @Override
+    public Iterable<Student> getAllStudent() {
+        return null;
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+        if (!studentRepository.existsById(student.getId())) {
+            throw new ResourceNotFoundException("Customer not found");
+        }
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteStudentById(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Customer not found");
+        }
+        studentRepository.deleteById(id);
+
+    }
+// требуется реализовать методы
+
+
+
+/*
+    @Override
+    public List<Student> getStudentById(Long id) {
+        Optional<Student> optional = studentRepository.findById(id);
+        return optional.map(Collections::singletonList).orElseGet(Collections::emptyList);
+    }
+
 
     @Override
     public List<Student> getByParam(String name) {
@@ -60,12 +110,7 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentRepository.save(student);
     }
-
-    @Override
-    public void delete(Long aLong) {
-
-    }
-
+    */
 
 }
 

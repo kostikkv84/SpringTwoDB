@@ -18,7 +18,6 @@ public class CustomerController {
         return this.customerService.getCustomerById(id);
     }
 
-
     public Customers createCustomer(Customers customer) {
         return customerService.saveCustomer(customer);
     }

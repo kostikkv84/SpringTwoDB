@@ -25,7 +25,6 @@ public class CustomersServiceImpl implements CustomerService {
     @Override
     public List<Customers> getCustomerById(Integer id) {
         Optional<Customers> optional = customerRepository.findById(id);
-
         return optional.map(Collections::singletonList).orElseGet(Collections::emptyList);
     }
 

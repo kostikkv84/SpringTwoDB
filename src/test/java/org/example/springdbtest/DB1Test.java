@@ -81,8 +81,6 @@ public class DB1Test {
 		Assertions.assertEquals(0, customerService.getCustomerByParam("Гречишин1").size(), "Удалены не все клиенты");
 	}
 
-
-
 	@Test
 	public void testFindAll() throws IOException {
 		Iterable<Customers> result = customerService.getAllCustomer();
